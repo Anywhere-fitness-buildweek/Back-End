@@ -20,51 +20,59 @@ exports.up = function (knex) {
     })
     .createTable("locations", (tbl) => {
       tbl.increments();
-      tbl.string("class_name", 128).notNullable();
+      tbl.string("location", 128).notNullable();
     })
     .createTable("users", (tbl) => {
       tbl.increments();
       tbl.string("username", 128).notNullable().unique();
       tbl.string("password", 128).notNullable();
       tbl
-        .integer("role")
+        .integer("role_id")
         .notNullable()
         .unsigned()
         .references("id")
         .inTable("roles")
         .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+        .onUpdate("CASCADE")
+       
     })
     .createTable("classes", (tbl) => {
       tbl.increments();
       tbl.string("class_name", 128).notNullable();
+      tbl.string("type", 128).notNullable()
+      tbl.string("level", 128).notNullable();
+      tbl.string("duration", 128).notNullable()
+      tbl.string("classSize", 128).notNullable()
+      tbl.string("attendees", 128).notNullable()
+      tbl.string("location", 128).notNullable()
       tbl
         .integer("class_instructor")
         .notNullable()
         .unsigned()
-        .references("user_id")
+        .references("id")
         .inTable("users")
         .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+        .onUpdate("CASCADE")
+      
     })
     .createTable("class_location", (tbl) => {
       tbl.increments();
-      tbl.string("class_location").notNullable();
       tbl.string("date").notNullable();
       tbl.string("start_time").notNullable();
       tbl
         .integer("location_id")
         .notNullable()
         .unsigned()
-        .references("location_id")
+        .references("id")
         .inTable("locations")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
+        
       tbl
         .integer("class_id")
         .notNullable()
         .unsigned()
-        .references("class_id")
+        .references("id")
         .inTable("classes")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
@@ -72,7 +80,7 @@ exports.up = function (knex) {
         .integer("instructor_id")
         .notNullable()
         .unsigned()
-        .references("user_id")
+        .references("id")
         .inTable("users")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
@@ -83,7 +91,7 @@ exports.up = function (knex) {
         .integer("class_id")
         .notNullable()
         .unsigned()
-        .references("class_id")
+        .references("id")
         .inTable("classes")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
@@ -91,7 +99,7 @@ exports.up = function (knex) {
         .integer("user_id")
         .notNullable()
         .unsigned()
-        .references("user_id")
+        .references("id")
         .inTable("users")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");

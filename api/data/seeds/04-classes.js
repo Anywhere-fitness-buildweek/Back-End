@@ -1,7 +1,8 @@
 exports.seed = function (knex) {
   return knex("classes").insert([
     {
-      name: "Weight Class",
+      class_name: "Weight Class",
+      class_instructor:1,
       type: "Weight Lifting",
       level: "Intermediate",
       duration: "2 hours",
@@ -10,7 +11,8 @@ exports.seed = function (knex) {
       location: 1,
     },
     {
-      name: "Inner Peace",
+      class_name: "Inner Peace",
+      class_instructor:1,
       type: "Yoga",
       level: "Beginner",
       duration: "1 hour",
@@ -19,17 +21,20 @@ exports.seed = function (knex) {
       location: 2,
     },
     {
-      name: "Running Wild",
+      class_name: "Running Wild",
+      class_instructor:1,
       type: "Cardio",
       level: "Intermediate",
       duration: "3 hours",
       classSize: "35",
       attendees: "30",
       location: 3,
+      
     },
     {
-      name: "Ultimate Training",
-      type: "Crossfit",
+      class_name: "Ultimate Training",
+      class_instructor:1,
+      type: "Cross-fit",
       level: "Expert",
       duration: "4 hours",
       classSize: "25",
