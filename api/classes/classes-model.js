@@ -12,24 +12,20 @@ function find() {
     return db("classes")
 }
 
- function findById(id) {
-     return db("classes").where("id", id).first();
+ function findById(class_id) {
+     return db("classes").where("class_id", class_id).first();
  }
 
- function add(newClass) {
-     return db("classes").insert(newClass, "id")
+ async function add(newClass) {
+     const[class_id]= await db("classes").insert(newClass,"class_id")
+     return db("classes").where({class_id}).first()
  }
 
- function update(id,classes) {
-     const classId = id
-     return db("classes").where("id",id).update(classes, "id")
-     .then (() => {
-         return("classes").where("id", classId).first()
-     })
+ function update(class_id,classes) {
+     return db("classes").where("class_id",class_id).update(classes, "class_id")
+     
  }
- function remove(id) {
-     return db("classes").where("id",id).del()
-     .then(() =>{
-         return db("classes")
-     })
+ function remove(class_id) {
+     return db("classes").where("class_id",class_id).del()
+     
  }

@@ -5,16 +5,6 @@ const Class = require('./classes-model');
 const router = express.Router()
 
 
-function validRole(role) {
-    return((req,res,next) =>{
-        if(req.decodedToken.role === role){
-            next()
-        }else{
-            res.status(401).json({message:"Unauthorized Login"})
-        }
-    })
-}
-
 router.get("/", (req,res) => {
     Class.find()
     .then(classes => {
@@ -26,10 +16,10 @@ router.get("/", (req,res) => {
     })
 });
 
-router.get("/:id",  (req,res) => {
-    const { id } = req.params;
+router.get("/:class_id",  (req,res) => {
+    const { class_id } = req.params;
 
-    Class.findById(id)
+    Class.findById(class_id)
     .then(classes => {
         if(classes) {
             res.json(classes)
@@ -43,11 +33,8 @@ router.get("/:id",  (req,res) => {
     })
 });
 
-router.post("/" , validRole(1), (req,res) => {
+router.post("/" , (req,res) => {
     Class.add(req.body)
-    .then(([id]) => {
-        return Class.findById(id)
-    })
     .then(data => {
         res.status(201).json(data)
     })
@@ -56,13 +43,13 @@ router.post("/" , validRole(1), (req,res) => {
     })
 });
 
-router.put("/:id", validRole(1), (req,res) => {
-    Class.update(req.params.id, req.body)
+router.put("/:class_id",  (req,res) => {
+    Class.update(req.params.class_id, req.body)
     .then(classes => {
         if(!classes) {
          res.status(404).json({message: "Could not find class with given ID"})
         }else{
-            return Class.findById(req.params.id)
+            return Class.findById(req.params.class_id)
         }
     })
     .then(updatedClass => {
@@ -74,16 +61,11 @@ router.put("/:id", validRole(1), (req,res) => {
     })
 })
 
-router.delete("/:id", validRole(1), (req,res) => {
-    const { id } = req.params
+router.delete("/:class_id",  (req,res) => {
 
-    Class.remove(id)
-    .then(deleted => {
-        if(deleted) {
-            res.json({removed:deleted})
-        }else{
-            res.status(404).json({message: "Could not find class with given ID"})
-        }
+    Class.remove(req.params.class_id)
+    .then(() => {
+        res.json({message: "she gone"})
     })
     //eslint-disable-next-line
     .catch(err => {
