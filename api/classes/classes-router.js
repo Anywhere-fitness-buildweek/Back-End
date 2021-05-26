@@ -5,6 +5,7 @@ const restricted = require('../auth/restricted-middleware');
 
 const router = express.Router()
 
+
 function validRole(role) {
     return((req,res,next) =>{
         if(req.decodedToken.role === role){
@@ -20,6 +21,7 @@ router.get("/", restricted, (req,res) => {
     .then(classes => {
         res.json(classes)
     })
+    //eslint-disable-next-line
     .catch(err => {
         res.status(500).json({message: "Failed to retrive classes"})
     })
@@ -36,6 +38,7 @@ router.get("/:id", restricted, (req,res) => {
             res.status(404).json({message: "Could not find class with given ID"})
         }
     })
+    //eslint-disable-next-line
     .catch(err => {
         res.status(500).json({message: "Failed to retrieve classes"})
     })
@@ -66,6 +69,7 @@ router.put("/:id", restricted, validRole(1), (req,res) => {
     .then(updatedClass => {
         res.json(updatedClass)
     })
+    //eslint-disable-next-line
     .catch(err =>{
         res.status(500).json({message: "Failed to update class"})
     })
@@ -82,10 +86,11 @@ router.delete("/:id", restricted, validRole(1), (req,res) => {
             res.status(404).json({message: "Could not find class with given ID"})
         }
     })
+    //eslint-disable-next-line
     .catch(err => {
         res.status(500).json({message:"Failed to delete class"})
     })
 });
 
-
+//helo
 module.exports = router;
