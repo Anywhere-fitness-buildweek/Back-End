@@ -42,10 +42,6 @@ const only = (role_id) => (req, res, next) => {
 //     });
 // };
 
-//! MIDDLEWARE FUNCTION
-//?? const checkIfRoleIdIsInstructor
-//*check to see if role_id is 1 to determine if instructor
-
 module.exports = {
   restricted,
   only,
