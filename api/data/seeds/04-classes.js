@@ -29,7 +29,6 @@ exports.seed = function (knex) {
       classSize: "35",
       attendees: "30",
       location: 3,
-      
     },
     {
       class_name: "Ultimate Training",

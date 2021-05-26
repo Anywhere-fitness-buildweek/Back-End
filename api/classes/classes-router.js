@@ -1,7 +1,6 @@
 const express = require('express');
 
 const Class = require('./classes-model');
-const restricted = require('../auth/restricted-middleware');
 
 const router = express.Router()
 
@@ -16,7 +15,7 @@ function validRole(role) {
     })
 }
 
-router.get("/", restricted, (req,res) => {
+router.get("/", (req,res) => {
     Class.find()
     .then(classes => {
         res.json(classes)
@@ -27,7 +26,7 @@ router.get("/", restricted, (req,res) => {
     })
 });
 
-router.get("/:id", restricted, (req,res) => {
+router.get("/:id",  (req,res) => {
     const { id } = req.params;
 
     Class.findById(id)
@@ -44,7 +43,7 @@ router.get("/:id", restricted, (req,res) => {
     })
 });
 
-router.post("/", restricted, validRole(1), (req,res) => {
+router.post("/" , validRole(1), (req,res) => {
     Class.add(req.body)
     .then(([id]) => {
         return Class.findById(id)
@@ -57,7 +56,7 @@ router.post("/", restricted, validRole(1), (req,res) => {
     })
 });
 
-router.put("/:id", restricted, validRole(1), (req,res) => {
+router.put("/:id", validRole(1), (req,res) => {
     Class.update(req.params.id, req.body)
     .then(classes => {
         if(!classes) {
@@ -75,7 +74,7 @@ router.put("/:id", restricted, validRole(1), (req,res) => {
     })
 })
 
-router.delete("/:id", restricted, validRole(1), (req,res) => {
+router.delete("/:id", validRole(1), (req,res) => {
     const { id } = req.params
 
     Class.remove(id)
