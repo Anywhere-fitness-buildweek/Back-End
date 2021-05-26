@@ -5,7 +5,7 @@ function tokenBuilder(user) {
   const payload = {
     id: user.id,
     username: user.username,
-    role_name: user.role_name,
+    role_id: user.role_id,
   };
   const options = {
     expiresIn: "1d",
