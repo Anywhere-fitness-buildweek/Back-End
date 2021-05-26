@@ -22,7 +22,7 @@ exports.up = function (knex) {
         .onUpdate("CASCADE");
     })
     .createTable("classes", (tbl) => {
-      tbl.increments();
+      tbl.increments("class_id");
       tbl.string("class_name", 128).notNullable();
       tbl.string("type", 128).notNullable();
       tbl.string("level", 128).notNullable();
@@ -56,7 +56,7 @@ exports.up = function (knex) {
         .integer("class_id")
         .notNullable()
         .unsigned()
-        .references("id")
+        .references("class_id")
         .inTable("classes")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
@@ -75,7 +75,7 @@ exports.up = function (knex) {
         .integer("class_id")
         .notNullable()
         .unsigned()
-        .references("id")
+        .references("class_id")
         .inTable("classes")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");

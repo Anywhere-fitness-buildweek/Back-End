@@ -4,6 +4,7 @@ const cors = require("cors");
 
 const AuthRouter = require("./auth/auth-router");
 const UsersRouter = require("./users/users-router");
+const classRouter = require("./classes/classes-router");
 
 const server = express();
 server.use(express.json());
@@ -12,6 +13,7 @@ server.use(cors());
 
 server.use("/api/auth", AuthRouter);
 server.use("/api/users", UsersRouter);
+server.use("/api/classes", classRouter);
 
 server.use((err, req, res, next) => {
   //eslint-disable-line
