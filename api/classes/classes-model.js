@@ -8,9 +8,10 @@ module.exports = {
     remove,
     count,
     addClient,
+    deleteClient,
 }
 
-function find() {
+async function find() {
     return db("classes")
 }
 
@@ -41,4 +42,10 @@ function find() {
  }
  async function addClient(user_id) {
     return db("class_students").insert(user_id).where("user_id", user_id)
+ }
+ async function deleteClient(user_id) {
+     return db("class_students").where(user_id).del()
+     .then(() => {
+         return db("class_students")
+     })
  }
