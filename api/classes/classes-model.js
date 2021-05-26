@@ -6,14 +6,21 @@ module.exports = {
     add,
     update,
     remove,
+    count,
+    addClient,
 }
 
 function find() {
     return db("classes")
 }
 
- function findById(class_id) {
-     return db("classes").where("class_id", class_id).first();
+ async function findById(class_id) {
+     const class_info= await db("classes").where("class_id", class_id).first();
+     const attendees = await count(class_id)
+     return {
+        ...class_info,
+        attendees
+        }
  }
 
  async function add(newClass) {
@@ -28,4 +35,10 @@ function find() {
  function remove(class_id) {
      return db("classes").where("class_id",class_id).del()
      
+ }
+ function count(class_id) {
+    return db("class_students").where("class_id", class_id).count("user_id").first()
+ }
+ async function addClient(user_id) {
+    return db("class_students").insert(user_id).where("user_id", user_id)
  }

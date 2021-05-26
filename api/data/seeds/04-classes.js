@@ -7,7 +7,6 @@ exports.seed = function (knex) {
       level: "Intermediate",
       duration: "2 hours",
       classSize: "50",
-      attendees: "26",
       location: 1,
     },
     {
@@ -17,7 +16,6 @@ exports.seed = function (knex) {
       level: "Beginner",
       duration: "1 hour",
       classSize: "20",
-      attendees: "14",
       location: 2,
     },
     {
@@ -27,7 +25,6 @@ exports.seed = function (knex) {
       level: "Intermediate",
       duration: "3 hours",
       classSize: "35",
-      attendees: "30",
       location: 3,
     },
     {
@@ -37,7 +34,6 @@ exports.seed = function (knex) {
       level: "Expert",
       duration: "4 hours",
       classSize: "25",
-      attendees: "30",
       location: 4,
     },
   ]);
