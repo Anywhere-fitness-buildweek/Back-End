@@ -1,17 +1,3 @@
-//exports.up = async (knex) => {
-// await knex.schema
-//  .createTable('users', (users) => {
-//     users.increments('user_id')
-//     users.string('user_username', 200).notNullable()
-//     users.string('user_password', 200).notNullable()
-//     users.string('user_email', 320).notNullable()
-//     users.timestamps(false, true)
-//   })
-// }
-
-// exports.down = async (knex) => {
-//    await knex.schema.dropTableIfExists('users')
-// }
 exports.up = function (knex) {
   return knex.schema
     .createTable("roles", (tbl) => {
@@ -33,18 +19,17 @@ exports.up = function (knex) {
         .references("id")
         .inTable("roles")
         .onDelete("CASCADE")
-        .onUpdate("CASCADE")
-       
+        .onUpdate("CASCADE");
     })
     .createTable("classes", (tbl) => {
       tbl.increments();
       tbl.string("class_name", 128).notNullable();
-      tbl.string("type", 128).notNullable()
+      tbl.string("type", 128).notNullable();
       tbl.string("level", 128).notNullable();
-      tbl.string("duration", 128).notNullable()
-      tbl.string("classSize", 128).notNullable()
-      tbl.string("attendees", 128).notNullable()
-      tbl.string("location", 128).notNullable()
+      tbl.string("duration", 128).notNullable();
+      tbl.string("classSize", 128).notNullable();
+      tbl.string("attendees", 128).notNullable();
+      tbl.string("location", 128).notNullable();
       tbl
         .integer("class_instructor")
         .notNullable()
@@ -52,8 +37,7 @@ exports.up = function (knex) {
         .references("id")
         .inTable("users")
         .onDelete("CASCADE")
-        .onUpdate("CASCADE")
-      
+        .onUpdate("CASCADE");
     })
     .createTable("class_location", (tbl) => {
       tbl.increments();
@@ -67,7 +51,7 @@ exports.up = function (knex) {
         .inTable("locations")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-        
+
       tbl
         .integer("class_id")
         .notNullable()
