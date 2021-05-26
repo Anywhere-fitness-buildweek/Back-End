@@ -1,9 +1,8 @@
-const express = require('express');
+const express = require("express");
 
-const Class = require('./classes-model');
+const Class = require("./classes-model");
 
-const router = express.Router()
-
+const router = express.Router();
 
 router.get("/", (req,res) => {
     Class.find()
@@ -11,26 +10,26 @@ router.get("/", (req,res) => {
         res.json(classes)
     })
     //eslint-disable-next-line
-    .catch(err => {
-        res.status(500).json({message: "Failed to retrive classes"})
-    })
+    .catch((err) => {
+        res.status(500).json({ message: "Failed to retrieve classes" })
+    });
 });
 
-router.get("/:class_id",  (req,res) => {
+router.get("/:class_id",  (req, res) => {
     const { class_id } = req.params;
 
     Class.findById(class_id)
-    .then(classes => {
-        if(classes) {
+    .then((classes) => {
+        if (classes) {
             res.json(classes)
-        }else{
-            res.status(404).json({message: "Could not find class with given ID"})
+        } else {
+            res.status(404).json({ message: "Could not find class with given ID" })
         }
     })
     //eslint-disable-next-line
-    .catch(err => {
+    .catch((err) => {
         res.status(500).json({message: "Failed to retrieve classes"})
-    })
+    });
 });
 
 router.post("/" , (req,res) => {
@@ -39,7 +38,7 @@ router.post("/" , (req,res) => {
         res.status(201).json(data)
     })
     .catch(err => {
-        res.status(500).json({message:err.message})
+        res.status(500).json({ message:err.message })
     })
 });
 
