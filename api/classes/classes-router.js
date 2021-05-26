@@ -43,6 +43,18 @@ router.post("/" , (req,res) => {
     })
 });
 
+router.post("/:id", (req,res) =>{
+    const user_id = req.body
+
+    Class.addClient(user_id)
+    .then(data => {
+        res.status(201).json(data)
+    })
+    .catch(err => {
+        res.status(500).json({message:err.message})
+    })
+})
+
 router.put("/:class_id",  (req,res) => {
     Class.update(req.params.class_id, req.body)
     .then(classes => {
