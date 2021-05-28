@@ -22,6 +22,7 @@ router.post(
 
     Users.add(user)
       .then((saved) => {
+        console.log(saved);
         res.json(saved);
       })
       .catch(next);

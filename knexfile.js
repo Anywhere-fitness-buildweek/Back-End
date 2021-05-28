@@ -19,23 +19,23 @@ if (process.env.DATABASE_URL) {
 
 const sharedConfig = {
   migrations: { directory: "./api/data/migrations" },
+  client: "pg",
   seeds: { directory: "./api/data/seeds" },
 };
 
 module.exports = {
   development: {
     ...sharedConfig,
-    connection: { filename: "./api/data/workout.db3" },
-    client: "sqlite3",
+    connection: process.env.DEV_DATABASE_URL,
+  
   },
   testing: {
     ...sharedConfig,
-    connection: { filename: "./api/data/test.db3" },
-    client: "sqlite3",
+    connection: process.env.TESTING_DATABASE_URL,
+   
   },
   production: {
     ...sharedConfig,
-    client: "pg",
     connection: process.env.DATABASE_URL,
     pool: { min: 2, max: 10 },
   },

@@ -7,11 +7,11 @@ const server = require("./api/server");
 
 const PORT = process.env.PORT || 5000;
 
-server.use(express.static(path.join(__dirname, "client/dist")));
+// server.use(express.static(path.join(__dirname, "client/dist")));
 
-server.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/dist", "index.html"));
-});
+// server.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "client/dist", "index.html"));
+// });
 
 server.listen(PORT, () => {
   console.log(`/n=== Server listening on port ${PORT}`);

@@ -1,4 +1,5 @@
 const express = require("express");
+const { route } = require("../auth/auth-router");
 
 const Class = require("./classes-model");
 
@@ -32,8 +33,8 @@ router.get("/:class_id", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
-  Class.add(req.body)
+router.post("/:location_id", (req, res) => {
+  Class.add(req.body, req.params.location_id)
     .then((data) => {
       res.status(201).json(data);
     })
@@ -42,17 +43,28 @@ router.post("/", (req, res) => {
     });
 });
 
-router.post("/:id", (req,res) =>{
-    const user_id = req.body
+router.post("/signup/:class_id/:user_id", (req, res) => {
+  Class.addClient(req.params.class_id, req.params.user_id)
+    .then((data) => {
+      res.status(201).json(data);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+});
 
-    Class.addClient(user_id)
-    .then(data => {
-        res.status(201).json(data)
-    })
-    .catch(err => {
-        res.status(500).json({ message:err.message })
-    })
-})
+//! Need to bring in params
+// router.post("/:id", (req, res) => {
+//   const user_id = req.body;
+
+//   Class.addClient(user_id)
+//     .then((data) => {
+//       res.status(201).json(data);
+//     })
+//     .catch((err) => {
+//       res.status(500).json({ message: err.message });
+//     });
+// });
 
 router.put("/:class_id", (req, res) => {
   Class.update(req.params.class_id, req.body)
@@ -60,12 +72,10 @@ router.put("/:class_id", (req, res) => {
       if (!classes) {
         res.status(404).json({ message: "Could not find class with given ID" });
       } else {
-        return Class.findById(req.params.class_id);
+        res.json(classes);
       }
     })
-    .then((updatedClass) => {
-      res.json(updatedClass);
-    })
+
     //eslint-disable-next-line
     .catch((err) => {
       res.status(500).json({ message: "Failed to update class" });
@@ -83,21 +93,4 @@ router.delete("/:class_id", (req, res) => {
     });
 });
 
-router.delete("removeUser/:class_id", (req,res) => {
-  const { class_id } = req.params
-  Class.removeClient(class_id)
-  .then(deleted => {
-      if(deleted){
-          res.json({removed: deleted})
-      }else {
-          res.status(404).json({message:"Could not find class lists with given ID"})
-      }
-  })
-  //eslint-disable-next-line
-  .catch((err) => {
-      res.status(500).json({message: "Failed to remove client from class"})
-  })
-})
-
-//
 module.exports = router;

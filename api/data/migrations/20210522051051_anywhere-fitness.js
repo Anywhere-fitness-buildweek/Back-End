@@ -28,7 +28,7 @@ exports.up = function (knex) {
       tbl.string("level", 128).notNullable();
       tbl.string("duration", 128).notNullable();
       tbl.string("classSize", 128).notNullable();
-      tbl.string("location", 128).notNullable();
+
       tbl
         .integer("class_instructor")
         .notNullable()
@@ -40,8 +40,8 @@ exports.up = function (knex) {
     })
     .createTable("class_location", (tbl) => {
       tbl.increments();
-      tbl.string("date").notNullable();
-      tbl.string("start_time").notNullable();
+      tbl.string("date");
+      tbl.string("start_time");
       tbl
         .integer("location_id")
         .notNullable()
@@ -59,14 +59,7 @@ exports.up = function (knex) {
         .inTable("classes")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-      tbl
-        .integer("instructor_id")
-        .notNullable()
-        .unsigned()
-        .references("id")
-        .inTable("users")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+      
     })
     .createTable("class_students", (tbl) => {
       tbl.increments();
